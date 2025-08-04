@@ -173,3 +173,105 @@ class vpns_bot_api():
             print("Ошибка, повторите попытку")
 
         return result_post
+
+    @staticmethod
+    def youkassa_create_url():
+        base_url = "http://tg.karolom.com"
+        bearer_token = "89dff937ad145a3893cf3a3af9276879"
+        headers = {
+            "Authorization": f"Bearer {bearer_token}",
+            "Content-Type": "application/json"
+        }
+        post_resource = "/v2/bot/youkassa/create_url"
+        post_url = (base_url + post_resource)
+        print(post_url)
+
+        json_create_payment_url = {
+            "tg_user_id": 693130475,
+            "sub_type": "vpns_1_month",
+            "country_сode": "HK"
+        }
+
+        result_post = requests.post(post_url, headers=headers, json=json_create_payment_url)
+        print("Ответ сервера:", result_post.text)
+        print("Статус код:", result_post.status_code)
+        check_post = result_post.json()
+        url_for_payment = check_post.get("url")
+        print("Перейдите по ссылке для покупки нового конфига:" + url_for_payment)
+
+        return result_post
+
+    @staticmethod
+    def new_discount_subs():
+        base_url = "http://tg.karolom.com"
+        bearer_token = "89dff937ad145a3893cf3a3af9276879"
+        headers = {
+            "Authorization": f"Bearer {bearer_token}",
+            "Content-Type": "application/json"
+        }
+        post_resource = "/v2/bot/subscription/discount"
+        post_url = (base_url + post_resource)
+        print(post_url)
+
+        result_post = requests.post(post_url, headers=headers)
+        print("Ответ сервера:", result_post.text)
+        print("Статус код:", result_post.status_code)
+        if result_post.status_code == 201:
+            print("Скидка успешно применена")
+        else:
+            print("Ошибка, обратитесь в службу поддержки")
+        return result_post
+
+    @staticmethod
+    def post_create_support_ticket():
+        base_url = "http://tg.karolom.com"
+        bearer_token = "89dff937ad145a3893cf3a3af9276879"
+        headers = {
+            "Authorization": f"Bearer {bearer_token}",
+            "Content-Type": "application/json"
+        }
+        post_resource = "/v2/bot/support/ticket"
+        post_url = (base_url + post_resource)
+        print(post_url)
+
+        json_create_support_params = {
+            "tg_user_id": 693130475,
+            "message": "Добрый день, у меня возникли проблемы с работой конфига"
+        }
+
+        result_post = requests.post(post_url, headers=headers, json=json_create_support_params)
+
+        print("Ответ сервера:", result_post.text)
+        print("Статус код:", result_post.status_code)
+        if result_post.status_code == 201:
+            print("Сообщение успешно отправлено службе поддержки")
+        else:
+            print("Ошибка, повторите попытку")
+        return result_post
+
+    @staticmethod
+    def post_test_ref_info():
+        base_url = "http://tg.karolom.com"
+        bearer_token = "89dff937ad145a3893cf3a3af9276879"
+        headers = {
+            "Authorization": f"Bearer {bearer_token}",
+            "Content-Type": "application/json"
+        }
+        post_resource = "/v2/bot/support/ticket"
+        post_url = (base_url + post_resource)
+        print(post_url)
+
+        json_create_ref_info = {
+            "tg_user_id": 693130475
+        }
+
+        result_post = requests.post(post_url, headers=headers, json=json_create_ref_info)
+
+        print("Ответ сервера:", result_post.text)
+        print("Статус код:", result_post.status_code)
+        if result_post.status_code == 201:
+            print("Успешно, ваша реферальная информация")
+        else:
+            print("Ошибка, повторите попытку")
+
+        return result_post
